@@ -6,8 +6,10 @@ This guide will walk you through deploying your forked copilot-api repository to
 
 - Railway account (sign up at https://railway.app)
 - GitHub account with access to your fork (https://github.com/kaykluz/copilot-api-4k)
-- GitHub Personal Access Token (you mentioned you already have this)
+- **GitHub Fine-Grained Personal Access Token with "Copilot" permission** (see [Troubleshooting Guide](RAILWAY_TROUBLESHOOTING.md) for detailed instructions)
 - GitHub Copilot subscription (individual, business, or enterprise)
+
+> ⚠️ **Important**: A standard GitHub token will NOT work. You need a fine-grained PAT with "Copilot" permission. See the [Troubleshooting Guide](RAILWAY_TROUBLESHOOTING.md#solution-create-a-fine-grained-personal-access-token) for step-by-step instructions.
 
 ## Deployment Methods
 
@@ -33,7 +35,7 @@ After selecting your repository, Railway will detect the Dockerfile automaticall
    - **Key**: `GH_TOKEN`
    - **Value**: Your GitHub Personal Access Token
 
-**Important**: Make sure your GitHub token has the necessary permissions. The token should have at least `read:user` scope.
+**Important**: Make sure your GitHub token is a **fine-grained Personal Access Token with "Copilot" permission**. A standard token or classic PAT without this permission will fail. See [RAILWAY_TROUBLESHOOTING.md](RAILWAY_TROUBLESHOOTING.md) for detailed instructions on creating the correct token.
 
 #### Step 3: Configure Port (Optional)
 
@@ -180,11 +182,17 @@ curl https://your-app.railway.app/usage
 2. Ensure your Dockerfile is correct
 3. Verify that bun.lock and package.json are in the repository
 
-### Authentication Issues
+### Authentication Issues ("Failed to get Copilot token")
 
-1. Verify your `GH_TOKEN` is set correctly in Railway variables
-2. Make sure your GitHub token has the correct permissions
-3. Check that you have an active GitHub Copilot subscription
+**This is the most common issue!** See the detailed [Troubleshooting Guide](RAILWAY_TROUBLESHOOTING.md) for the complete solution.
+
+**Quick fix**:
+1. Create a **fine-grained Personal Access Token** at https://github.com/settings/tokens?type=beta
+2. Add **"Copilot"** permission (under Account permissions)
+3. Set it as `GH_TOKEN` in Railway variables
+4. Wait for automatic redeployment
+
+For detailed step-by-step instructions, see [RAILWAY_TROUBLESHOOTING.md](RAILWAY_TROUBLESHOOTING.md).
 
 ### Service Crashes
 
